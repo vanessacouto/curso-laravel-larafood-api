@@ -18,4 +18,9 @@ class TenantRepository implements TenantRepositoryInterface
     {
         return $this->entity->all();
     }
+
+    public function getTenantByUuid(string $uuid)
+    {
+        return $this->entity->where('uuid', $uuid)->first();
+    }
 }
