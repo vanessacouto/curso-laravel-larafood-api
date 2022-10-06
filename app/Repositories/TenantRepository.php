@@ -14,9 +14,10 @@ class TenantRepository implements TenantRepositoryInterface
         $this->entity = $tenant;
     }
 
-    public function getAllTenants() 
+    public function getAllTenants(int $per_page) 
     {
-        return $this->entity->all();
+        // recupera todos os tenants já paginado
+        return $this->entity->paginate($per_page);
     }
 
     public function getTenantByUuid(string $uuid)

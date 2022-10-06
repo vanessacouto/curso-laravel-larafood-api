@@ -16,18 +16,25 @@ class TenantApiController extends Controller
         $this->tenantService = $tenantService;
     }
 
-    public function index() 
+    public function index(Request $request) 
     {
+        //captura o valor 'per-page' do request (se não informado, o valor default é 15)
+        // o 'per-page' é o numero de registros a ser exibido por pagina (http://larafood.test/api/tenants?per_page=1)
+        $per_page = (int) $request->get('per_page', 15); 
+        
+        $tenants = $this->tenantService->getAllTenants($per_page);
+        
         // por meio do resource TenantResource define exatamente como 
         // a resposta é dada: quais campos, quais nomes...
-        return TenantResource::collection(
-            $this->tenantService->getAllTenants()
-        );
+        return TenantResource::collection($tenants);
     }
 
     public function show($uuid) 
     {
-        $tenant = $this->tenantService->getTenantByUuid($uuid);
+        // se não encontrar
+        if (!$tenant = $this->tenantService->getTenantByUuid($uuid)) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
 
         // retorna um unico objeto e não uma collection
         return new TenantResource($tenant);
