@@ -11,9 +11,7 @@ use App\Observers\TenantObserver;
 use App\Observers\ProductObserver;
 use App\Observers\CategoryObserver;
 use Illuminate\Pagination\Paginator;
-use App\Repositories\TenantRepository;
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,10 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            TenantRepositoryInterface::class,
-            TenantRepository::class
-        );
+        
     }
 
     /**

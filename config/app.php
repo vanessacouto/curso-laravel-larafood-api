@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // provider criado para fazer o bind das interfaces de repository
+        App\Providers\RepositoryServiceProvider::class,
     ],
 
     /*
