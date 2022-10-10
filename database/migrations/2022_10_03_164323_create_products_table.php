@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration
             'products', function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('tenant_id');
+                $table->uuid('uuid');
                 $table->string('title')->unique();
                 $table->string('flag')->unique(); // ou url
                 $table->string('image');
@@ -55,6 +56,10 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        // antes de deletar a tabela 'products', deletar
+        // as que se relacionam com ela
+        Schema::dropIfExists('category_product');
+
         Schema::dropIfExists('products');
     }
 }

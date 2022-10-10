@@ -17,6 +17,9 @@ class ProductObserver
     {
         // esse metodo é executado antes de criar o registro de fato
         $product->flag = Str::kebab($product->title);
+
+        // insere o uuid
+        $product->uuid = Str::uuid();
     }
 
     /**

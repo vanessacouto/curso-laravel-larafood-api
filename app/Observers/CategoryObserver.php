@@ -17,6 +17,9 @@ class CategoryObserver
     {
         // esse metodo é executado antes de criar o registro de fato
         $category->url = Str::kebab($category->name);
+
+        // insere o uuid
+        $category->uuid = Str::uuid();
     }
 
     /**
