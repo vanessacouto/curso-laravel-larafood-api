@@ -17,6 +17,9 @@ class ClientRepository implements ClientRepositoryInterface
 
     public function createNewClient(array $data)
     {
+        //criptografa a senha
+        $data['password'] = bcrypt($data['password']);
+        
         return $this->entity->create($data);
     }
     

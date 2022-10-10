@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/sanctum/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
+
+Route::group(
+    [
+    'middleware' => ['auth:sanctum']
+    ], function () {
+        Route::get('/auth/me', 'App\Http\Controllers\Api\Auth\AuthClientController@me');
+    }
+);
+
 Route::group(
     [
     'prefix' => 'v1'
