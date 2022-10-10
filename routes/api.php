@@ -30,5 +30,7 @@ Route::group(
 
         Route::get('/products/{flag}', 'App\Http\Controllers\Api\ProductApiController@show');
         Route::get('/products', 'App\Http\Controllers\Api\ProductApiController@productsByTenant');
+
+        Route::post('/client', 'App\Http\Controllers\Api\Auth\RegisterController@store');
     }
 );
