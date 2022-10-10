@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
+    use TenantTrait;
+
+    protected $fillable = ['name', 'url', 'description'];
     
     public function products()
     {
