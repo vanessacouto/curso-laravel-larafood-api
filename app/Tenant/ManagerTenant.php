@@ -8,12 +8,13 @@ class ManagerTenant
 {
     public function getTenantIdentify()
     {
-        return auth()->user()->tenant_id;
+        // para fazer um pedido, o usuario pode ou nao estar logado
+        return auth()->check() ? auth()->user()->tenant_id : '';
     }
 
-    public function getTenant(): Tenant
+    public function getTenant()
     {
-        return auth()->user()->tenant;
+        return auth()->check() ? auth()->user()->tenant : '';
     }
 
     public function isAdmin(): bool
