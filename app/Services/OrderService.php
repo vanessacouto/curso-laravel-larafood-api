@@ -61,9 +61,11 @@ class OrderService
 
         $identify = substr(str_shuffle($characters), 0, $qtyCharacters);
 
-        // if ($this->orderRepository->getOrderByIdentify($identify)) {
-        //     $this->getIdentifyOrder($qtyCharacters + 1);
-        // }
+        // garante que o 'identify' gerado é único
+        if ($this->orderRepository->getOrderByIdentify($identify)) {
+            // chama o metodo denovo
+            $this->getIdentifyOrder($qtyCharacters + 1);
+        }
 
         return $identify;
     }
