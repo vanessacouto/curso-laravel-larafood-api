@@ -45,7 +45,10 @@ class OrderService
             $comment,
             $clientId, $tableId
         );
-
+        
+        // insere na tabela pivo 'order_product'
+        $this->orderRepository->registerProductsOrder($order->id, $productsOrder);
+        
         return $order;
     } 
 

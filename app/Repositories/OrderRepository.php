@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 
 class OrderRepository implements OrderRepositoryInterface
@@ -45,5 +46,37 @@ class OrderRepository implements OrderRepositoryInterface
     public function getOrderByIdentify(string $identify)
     {
         return $this->entity->where('identify', $identify)->first();
+    }
+
+    // cadastrar na tabela pivo 'order_product'
+    public function registerProductsOrder(int $orderId, array $products)
+    {
+        $orderProducts = [];
+        
+        $order = $this->entity->find($orderId);
+        
+        foreach ($products as $product) {
+            $orderProducts[$product['id']] = [
+                'qty' => $product['qty'],
+                'price' => $product['price']
+            ];
+        }
+        
+        $order->products()->attach($orderProducts);
+
+        // ** usando DB
+        // $orderProducts = [];
+        // foreach ($products as $product) {
+        //     array_push($orderProducts, [
+        //         'order_id' => $orderId,
+        //         'product_id' => $product['id'],
+        //         'qty' => $product['qty'],
+        //         'price' => $product['price']
+        //     ]);
+        // }
+
+        // // faz insert na tabela
+        // DB::table('order_product')->insert($orderProducts);
+        // ** FIM usando DB
     }
 }
