@@ -22,6 +22,7 @@ Route::group(
         Route::get('/auth/me', 'App\Http\Controllers\Api\Auth\AuthClientController@me');
         Route::post('/auth/logout', 'App\Http\Controllers\Api\Auth\AuthClientController@logout');
 
+        Route::get('/auth/v1/my-orders', 'App\Http\Controllers\Api\OrderApiController@myOrders');
         Route::post('/auth/v1/orders', 'App\Http\Controllers\Api\OrderApiController@store');
     }
 );
