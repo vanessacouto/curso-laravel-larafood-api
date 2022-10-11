@@ -29,14 +29,18 @@ class OrderService
         $total = $this->getTotalOrder([]);
         $status = 'open';
         $tenantId = $this->getTenantIdByOrder($order['token_company']);
+        $comment = isset($order['comment']) ?  $order['comment'] : '';
         $clientId = $this->getClientIdByOrder();
-        $tableId = $this->getTableIdByOrder($order['table']);
+        $tableId = $this->getTableIdByOrder($order['table'] ?? '');
 
         $order = $this->orderRepository->createNewOrder(
             $identify, $total,
             $status, $tenantId,
+            $comment,
             $clientId, $tableId
         );
+
+        return $order;
     } 
 
     // cria um identificador unico para o Pedido
@@ -80,9 +84,11 @@ class OrderService
     {
         if ($uuid) { // se informou a mesa
             $table =  $this->tableRepository->getTableByUuid($uuid);
+
+            return $table->id;
         }
 
-        return $table->id;
+        return '';
     }
 
     private function getClientIdByOrder()
