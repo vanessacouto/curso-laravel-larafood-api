@@ -24,7 +24,18 @@ class StoreOrder extends FormRequest
     public function rules()
     {
         return [
-            //
+            'token_company' => [
+                'required',
+                'exists:tenants,uuid'
+            ],
+            'table' => [
+                'nullable',
+                'exists:tables,uuid'
+            ], // esse valor deve existir na coluna 'uuid' da tabela 'tables'
+            'comment' => [
+                'nullable',
+                'max:1000'
+             ]
         ];
     }
 }
