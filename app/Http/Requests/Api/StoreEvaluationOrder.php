@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Repositories\Contracts\OrderRepositoryInterface;
 
 class StoreEvaluationOrder extends FormRequest
 {
@@ -13,7 +14,21 @@ class StoreEvaluationOrder extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        // deve estar logado para fazer uma avaliacao
+        if (!$client = auth()->user()) { 
+            return false;
+        }
+        
+        // cria um objeto sem fazer 'new'
+        $order = app(OrderRepositoryInterface::class)->getOrderByIdentify($this->identifyOrder); // identify da order passada na url
+
+        // se não existir a 'order'
+        if (!$order) {
+            return false;
+        }
+
+        // só pode cadastrar a avaliacao quem for o dono do pedido
+        return $client->id == $order->client_id;
     }
 
     /**
