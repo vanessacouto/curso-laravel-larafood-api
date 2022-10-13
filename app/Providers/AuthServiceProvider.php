@@ -27,6 +27,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // verifica se esta rodando via console
+        if ($this->app->runningInConsole()) {
+            // dessa forma não vai para  proxima linha que consulta a tabela de 'permissions'
+            return;
+        }
+
         $permissions = Permission::all();
 
         // itera todas as permissoes do sistema, definindo os gates de acordo com as permissoes do usuario autenticado
