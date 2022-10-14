@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/sanctum/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
+
+Route::post('/auth/register', 'App\Http\Controllers\Api\Auth\RegisterController@store');
+Route::post('/auth/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
 
 Route::group(
     [
@@ -47,7 +49,7 @@ Route::group(
         Route::get('/products/{identify}', 'App\Http\Controllers\Api\ProductApiController@show');
         Route::get('/products', 'App\Http\Controllers\Api\ProductApiController@productsByTenant');
 
-        Route::post('/client', 'App\Http\Controllers\Api\Auth\RegisterController@store');
+        
 
         Route::post('/orders', 'App\Http\Controllers\Api\OrderApiController@store');
         Route::get('/orders/{identify}', 'App\Http\Controllers\Api\OrderApiController@show');
