@@ -65,4 +65,65 @@ class AuthTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonStructure(['token']);
     }
+
+     /**
+      * Error get me.
+      *
+      * @return void
+      */
+    public function testErrorGetMe()
+    {
+        $response = $this->getJson('/api/auth/me');
+    
+        $response->assertStatus(401);
+    }
+
+    /**
+     * Test get me.
+     *
+     * @return void
+     */
+    public function testGetMe()
+    {
+        $client = Client::factory()->create();
+        $token = $client->createToken(Str::random(10))->plainTextToken;
+
+        // passa o header Authorization
+        $response = $this->getJson(
+            '/api/auth/me', [
+            'Authorization' => "Bearer {$token}",
+            ]
+        );
+      
+        $response->assertStatus(200)
+            ->assertExactJson(
+                [
+                'data' => [
+                    'name' => $client->name,
+                    'email' => $client->email
+                ]
+                ]
+            );
+    }
+
+    /**
+     * Test logout.
+     *
+     * @return void
+     */
+    public function testLogout()
+    {
+        $client = Client::factory()->create();
+        $token = $client->createToken(Str::random(10))->plainTextToken;
+
+        // passa o header Authorization (terceiro parametro...o segundo é o payload)
+        $response = $this->postJson(
+            '/api/auth/logout', [], [
+            'Authorization' => "Bearer {$token}",
+            ]
+        );
+      
+        $response->assertStatus(204);
+    }
+
 }
