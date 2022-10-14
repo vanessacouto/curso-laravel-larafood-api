@@ -25,7 +25,8 @@ class AuthClientController extends Controller
 
         // garante que o cliente existe e que a senha é a do cliente
         if (!$client || !Hash::check($request->password, $client->password)) {
-            return response()->json(['message' => 'Credenciais Inválidas'], 404);
+            // mensagem esta no arquivo resources/lang/en/messages.php
+            return response()->json(['message' => trans('messages.invalid_credentials')], 404);
         }
 
         //cria o token
