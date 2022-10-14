@@ -205,7 +205,7 @@ class OrderTest extends TestCase
         $token = $client->createToken(Str::random(10))->plainTextToken;
   
         //cria um Pedido
-        Order::factory()->create();
+        Order::factory()->create(['client_id' => $client->id]);
 
         $response = $this->getJson(
             '/api/auth/v1/my-orders', [
