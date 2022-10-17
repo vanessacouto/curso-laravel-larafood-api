@@ -139,7 +139,7 @@ Route::prefix('admin')
     /**
     * Home Dashboard
     */
-    Route::get('/', 'App\Http\Controllers\Admin\PlanController@index')->name('admin.index');
+    Route::get('/', 'App\Http\Controllers\Admin\DashboardController@home')->name('admin.index');
 });
 
 /**
