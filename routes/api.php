@@ -55,3 +55,12 @@ Route::group(
         Route::get('/orders/{identify}', 'App\Http\Controllers\Api\OrderApiController@show');
     }
 );
+
+/**
+ * Test API
+ */
+Route::get(
+    '/', function () {
+        return response()->json(['message' => 'ok']);
+    }
+);
