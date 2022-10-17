@@ -18,8 +18,10 @@ class CreateProductsTable extends Migration
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('tenant_id');
                 $table->uuid('uuid');
-                $table->string('title')->unique();
-                $table->string('flag')->unique(); // ou url
+                $table->string('title');
+                $table->string('flag'); // ou url
+                // $table->string('title')->unique();
+                // $table->string('flag')->unique(); // ou url
                 $table->string('image');
                 $table->double('price', 10, 2);
                 $table->text('description');
