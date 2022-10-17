@@ -17,6 +17,9 @@ Route::prefix('admin')
 ->middleware('auth')
 ->group(function() {
 
+    // Orders
+    Route::get('orders', 'App\Http\Controllers\Admin\OrderController@index')->name('orders.index');
+
     /**
     * Role x User
     */

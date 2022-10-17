@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\OrderCreated;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
 use App\Http\Controllers\Controller;
@@ -22,6 +23,9 @@ class OrderApiController extends Controller
     {
         $order = $this->orderService->createNewOrder($request->all());
         
+        // a cada novo pedido dispara o broadcast do evento
+        broadcast(new OrderCreated($order));
+
         return new OrderResource($order);
     }
 

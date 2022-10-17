@@ -349,6 +349,11 @@ return [
             'icon'  => 'fas fa-tablet',
             'can'  => 'tables',
         ],
+        [
+            'text' => 'Pedidos',
+            'url'  => 'admin/orders',
+            'icon'  => 'fas fa-utensils',
+        ],
     ],
 
     /*
