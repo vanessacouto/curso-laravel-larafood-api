@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .vue()
     .postCss('resources/css/custom-dash.css', 'public/css')
     .postCss('resources/css/site.css', 'public/css');
-    //.vue()
     //.sass('resources/sass/app.scss', 'public/css');
