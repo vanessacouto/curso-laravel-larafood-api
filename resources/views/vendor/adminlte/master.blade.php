@@ -75,6 +75,8 @@
     @endif
 
     <link rel="icon" type="image/png" href="{{ url('imgs/favicon.png') }}">
+
+    <link rel="stylesheet" href="{{ asset('css/custom-dash.css') }}">
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
