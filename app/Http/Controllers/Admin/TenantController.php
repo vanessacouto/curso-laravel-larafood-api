@@ -58,11 +58,11 @@ class TenantController extends Controller
         // // tenant do usuário autenticado
         // $tenant = auth()->user()->tenant;
 
-        // // salva a imagem
-        // if ($request->hasFile('logo') && $request->logo->isValid()) {
-        //     // organiza as pastas por tenant
-        //     $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
-        // }
+        // salva a imagem
+        if ($request->hasFile('logo') && $request->logo->isValid()) {
+            // organiza as pastas por tenant
+            $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
+        }
 
         $this->repository->create($data);
 
@@ -122,7 +122,7 @@ class TenantController extends Controller
         if ($request->hasFile('logo') && $request->logo->isValid()) {
 
             // remove a imagem anterior
-            if (Storage::exists($tenant->logo)) {
+            if (!is_null(Storage::exists($tenant->logo))) {
                 Storage::delete($tenant->logo);
             }
 
