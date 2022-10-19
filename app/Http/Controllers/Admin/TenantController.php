@@ -53,21 +53,28 @@ class TenantController extends Controller
      */
     public function store(StoreUpdateTenant $request)
     {
-        $data = $request->all();
-
-        // // tenant do usuário autenticado
-        // $tenant = auth()->user()->tenant;
-
-        // salva a imagem
-        if ($request->hasFile('logo') && $request->logo->isValid()) {
-            // organiza as pastas por tenant
-            $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
-        }
-
-        $this->repository->create($data);
+        $this->repository->create($request->all());
 
         return redirect()->route('tenants.index');
     }
+    
+    // public function store(StoreUpdateTenant $request)
+    // {
+    //     $data = $request->all();
+
+    //     // // tenant do usuário autenticado
+    //     // $tenant = auth()->user()->tenant;
+
+    //     // salva a imagem
+    //     if ($request->hasFile('logo') && $request->logo->isValid()) {
+    //         // organiza as pastas por tenant
+    //         $data['logo'] = $request->logo->store("tenants/{$tenant->uuid}");
+    //     }
+
+    //     $this->repository->create($data);
+
+    //     return redirect()->route('tenants.index');
+    // }
 
     /**
      * Display the specified resource.
